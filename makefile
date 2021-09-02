@@ -79,6 +79,7 @@ clean:
 JUPYTER_PASSWORD ?= jupyter
 JUPYTER_PORT ?= 8888
 .PHONY: jupyter
+jupyter: IMAGE=mathematiguy/stylized-neural-painting-codeserver
 jupyter: UID=root
 jupyter: GID=root
 jupyter: DOCKER_ARGS=-u $(UID):$(GID) --rm -it -p $(JUPYTER_PORT):$(JUPYTER_PORT) -e NB_USER=$$USER -e NB_UID=$(UID) -e NB_GID=$(GID)
@@ -92,16 +93,22 @@ jupyter:
 			"from IPython.lib import passwd; print(passwd('$(JUPYTER_PASSWORD)'))")
 
 docker:
-	docker build $(DOCKER_ARGS) --tag $(IMAGE):$(GIT_TAG) .
+	docker build $(DOCKER_ARGS) --tag $(IMAGE):$(GIT_TAG) -f Dockerfile .
 	docker tag $(IMAGE):$(GIT_TAG) $(IMAGE):latest
+	docker build $(DOCKER_ARGS) --tag $(IMAGE)-codeserver:$(GIT_TAG) -f codeserver.Dockerfile .
+	docker tag $(IMAGE)-codeserver:$(GIT_TAG) $(IMAGE)-codeserver:latest
 
 docker-push:
 	docker push $(IMAGE):$(GIT_TAG)
 	docker push $(IMAGE):latest
+	docker push $(IMAGE)-codeserver:$(GIT_TAG)
+	docker push $(IMAGE)-codeserver:latest
 
 docker-pull:
 	docker pull $(IMAGE):$(GIT_TAG)
 	docker tag $(IMAGE):$(GIT_TAG) $(IMAGE):latest
+	docker pull $(IMAGE)-codeserver:$(GIT_TAG)
+	docker tag $(IMAGE)-codeserver:$(GIT_TAG) $(IMAGE):latest
 
 enter: DOCKER_ARGS=-it
 enter:
