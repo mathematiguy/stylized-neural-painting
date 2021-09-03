@@ -14,7 +14,7 @@ all: checkpoints_G_oilpaintbrush \
 	checkpoints_G_rectangle \
 	checkpoints_G_markerpen \
 	checkpoints_G_watercolor \
-  checkpoints_G_oilpaintbrush_light \
+  	checkpoints_G_oilpaintbrush_light \
 	checkpoints_G_rectangle_light \
 	checkpoints_G_markerpen_light \
 	checkpoints_G_watercolor_light
