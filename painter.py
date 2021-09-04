@@ -127,9 +127,14 @@ class PainterBase():
             self.output_dir, self.img_path.split('/')[-1][:-4])
 
         if save_video:
+            video_name = file_name + '_animated'
             video_writer = cv2.VideoWriter(
-                file_name + '_animated.mp4', cv2.VideoWriter_fourcc(*'H264'), 40,
+                video_name + '.mp4', cv2.VideoWriter_fourcc(*'MP4V'), 40,
                 (out_w, out_h))
+            os.system(
+                f"ffmpeg -i {video_name}.mp4 -vcodec libx264 {file_name}.mp4"
+            )
+            os.remove(video_name + '.mp4')
 
         print('\nrendering canvas...')
         self.rderr.create_empty_canvas()

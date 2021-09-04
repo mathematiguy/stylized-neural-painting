@@ -1,4 +1,4 @@
-FROM mathematiguy/stylized-neural-painting:eacae48
+FROM mathematiguy/stylized-neural-painting
 
 RUN apt update && apt install -y curl git
 
