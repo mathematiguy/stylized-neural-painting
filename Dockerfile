@@ -32,7 +32,9 @@ RUN apt-get update && \
   ffmpeg \
   libsm6 \
   libxext6 \
-  unzip
+  unzip \
+  x264 \
+  libx264-dev
 
 # Install python + other things
 RUN apt update

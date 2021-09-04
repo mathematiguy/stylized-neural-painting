@@ -19,3 +19,5 @@ output/
 test_images/
 .ipynb_checkpoints/
 core
+checkpoints_G*
+val_out/

@@ -128,10 +128,10 @@ class PainterBase():
 
         if save_video:
             video_writer = cv2.VideoWriter(
-                file_name + '_animated.mp4', cv2.VideoWriter_fourcc(*'MP4V'), 40,
+                file_name + '_animated.mp4', cv2.VideoWriter_fourcc(*'H264'), 40,
                 (out_w, out_h))
 
-        print('rendering canvas...')
+        print('\nrendering canvas...')
         self.rderr.create_empty_canvas()
         for i in range(v.shape[0]):  # for each stroke
             self.rderr.stroke_params = v[i, :]
@@ -299,10 +299,10 @@ class Painter(PainterBase):
 
     def _drawing_step_states(self):
         acc = self._compute_acc().item()
-        print('iteration step %d, G_loss: %.5f, step_psnr: %.5f, strokes: %d / %d'
+        print('\riteration step %d, G_loss: %.5f, step_psnr: %.5f, strokes: %d / %d'
               % (self.step_id, self.G_loss.item(), acc,
                  (self.anchor_id+1)*self.m_grid*self.m_grid,
-                 self.max_m_strokes))
+                 self.max_m_strokes), end = '')
         vis2 = utils.patches2img(self.G_final_pred_canvas, self.m_grid).clip(min=0, max=1)
         if self.args.disable_preview:
             pass
@@ -349,10 +349,10 @@ class ProgressivePainter(PainterBase):
 
     def _drawing_step_states(self):
         acc = self._compute_acc().item()
-        print('iteration step %d, G_loss: %.5f, step_acc: %.5f, grid_scale: %d / %d, strokes: %d / %d'
+        print('\riteration step %d, G_loss: %.5f, step_acc: %.5f, grid_scale: %d / %d, strokes: %d / %d'
               % (self.step_id, self.G_loss.item(), acc,
                  self.m_grid, self.max_divide,
-                 self.anchor_id + 1, self.m_strokes_per_block))
+                 self.anchor_id + 1, self.m_strokes_per_block), end = '')
         vis2 = utils.patches2img(self.G_final_pred_canvas, self.m_grid).clip(min=0, max=1)
         if self.args.disable_preview:
             pass

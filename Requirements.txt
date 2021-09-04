@@ -13,3 +13,4 @@ runway-python==0.6.1
 ipython
 jupyter
 jupyterlab
+attrdict

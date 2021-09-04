@@ -164,7 +164,7 @@ class Imitator():
             vis = np.clip(vis, a_min=0.0, a_max=1.0)
             file_name = os.path.join(
                 self.vis_dir, 'istrain_'+str(self.is_training)+'_'+
-                              str(self.epoch_id)+'_'+str(self.batch_id)+'.jpg')
+                              str(self.epoch_id)+'_'+str(self.batch_id)+'.png')
             plt.imsave(file_name, vis)
 
 
