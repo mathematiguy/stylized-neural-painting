@@ -70,7 +70,6 @@ def optimize_x(pt):
           .rsplit('/', 1)[-1]
           .split('.', 1)[0])
     )
-    print(f"ffmpeg -i {file_name}_animated.mp4 -vcodec libx264 {file_name}.mp4")
     os.system(f"ffmpeg -i {file_name}_animated.mp4 -vcodec libx264 {file_name}.mp4")
 
 

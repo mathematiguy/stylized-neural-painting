@@ -63,7 +63,7 @@ class PainterBase():
         # load renderer G
         if os.path.exists((os.path.join(
                 self.renderer_checkpoint_dir, 'last_ckpt.pt'))):
-            print('loading renderer from pre-trained checkpoint...')
+            # print('loading renderer from pre-trained checkpoint...')
             # load the entire checkpoint
             checkpoint = torch.load(os.path.join(self.renderer_checkpoint_dir, 'last_ckpt.pt'),
                                 map_location=None if torch.cuda.is_available() else device)
@@ -301,7 +301,7 @@ class Painter(PainterBase):
 
     def _drawing_step_states(self):
         acc = self._compute_acc().item()
-        print('\riteration step %d, G_loss: %.5f, step_psnr: %.5f, strokes: %d / %d'
+        print('\riteration step %03d, G_loss: %.5f, step_psnr: %.5f, strokes: %d / %d'
               % (self.step_id, self.G_loss.item(), acc,
                  (self.anchor_id+1)*self.m_grid*self.m_grid,
                  self.max_m_strokes), end = '')
