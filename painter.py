@@ -56,7 +56,7 @@ class PainterBase():
         self.m_strokes_per_block = None
 
         if os.path.exists(self.output_dir) is False:
-            os.mkdir(self.output_dir)
+            os.makedirs(self.output_dir)
 
     def _load_checkpoint(self):
 
@@ -93,7 +93,7 @@ class PainterBase():
         x_ctt = v[:, :, 0:d_shape]
         x_color = v[:, :, d_shape:d_shape+d_color]
         x_alpha = v[:, :, d_shape+d_color:d_shape+d_color+d_alpha]
-        print('saving stroke parameters...')
+        print('\nsaving stroke parameters...')
         file_name = os.path.join(
             self.output_dir, self.img_path.split('/')[-1][:-4])
         np.savez(file_name + '_strokes.npz', x_ctt=x_ctt,
@@ -128,15 +128,12 @@ class PainterBase():
 
         if save_video:
             video_name = file_name + '_animated'
+            print(f'Saving video file to: {video_name}.mp4')
             video_writer = cv2.VideoWriter(
                 video_name + '.mp4', cv2.VideoWriter_fourcc(*'MP4V'), 40,
                 (out_w, out_h))
-            os.system(
-                f"ffmpeg -i {video_name}.mp4 -vcodec libx264 {file_name}.mp4"
-            )
-            os.remove(video_name + '.mp4')
+            # os.remove(video_name + '.mp4')
 
-        print('\nrendering canvas...')
         self.rderr.create_empty_canvas()
         for i in range(v.shape[0]):  # for each stroke
             self.rderr.stroke_params = v[i, :]
